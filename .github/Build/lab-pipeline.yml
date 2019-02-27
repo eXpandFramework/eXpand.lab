@@ -1,0 +1,44 @@
+# https://aka.ms/yaml
+trigger: 
+   branches:
+     include:
+       - master
+queue:
+  name: Hosted VS2017
+  demands: 
+  - msbuild
+  - visualstudio
+variables:
+  eXpandFramework: 'dc0010e5-9ecf-45ac-b89d-2d51897f3855'
+  issueNotifierPipeline: 26
+  repository: "lab"
+steps:
+- powershell: |
+   $version=$(System.DefaultWorkingDirectory)\Support\build\go.ps1|Select-Object -Last 1
+   Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
+   $sources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$(DXApiFeed)")   
+   
+   throw $(repository)
+   & $(System.DefaultWorkingDirectory)\support\build\go.ps1 -packageSources $sources -configuration "Release" -msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe" -taskList @("Release","PublishNuget") -nugetApiKey $(NuGetApiKey) -version $version -publishNugetFeed $(PublishNugetFeed) -Repository $repository
+   exit $LastExitCode
+  failOnStderr: true
+  displayName: Build
+- powershell: | 
+   $version="$(Build.BuildNumber)"
+   $nugetServerUri="https://xpandnugetserver.azurewebsites.net/"
+   $installerBuildUri="https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/results?buildId=$version&view=results"
+   $msg="Installer lab build [$version]($installerBuildUri) includes commit {Commits} that relate to this task. Please test if it addresses the problem. If you use nuget add our [NugetServer]({$nugetServerUri}) as a nuget package source in VS"
+   $msg
+   Checkpoint-GithubIssue -GitHubApp eXpandFramework -Owner $(GithubUserName) -Organization eXpandFramework -Repository1 eXpand -Repository2 $repository -Message $msg -Pass $(GithubPass) 
+  displayName: 'Checkpoint-GithubIss'
+  failOnStderr: true
+  enabled: true
+- task: PublishPipelineArtifact@0
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    artifactName: Packages
+    targetPath: bin/Nupkg
+
+
+
+

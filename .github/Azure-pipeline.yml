@@ -11,13 +11,17 @@ steps:
 - checkout: self
   clean: true
   submodules: true
+  persistCredentials: true
 - powershell: |
    $repository="$(Build.Repository.Name)"
    if ($repository -like "*/lab"){
       Write-Host "Finding Version.."
       $version=(& $(System.DefaultWorkingDirectory)\Support\build\go.ps1)|Select-Object -Last 1
-      Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
       $publishNugetFeed="https://xpandnugetserver.azurewebsites.net/nuget"
+      Write-Host "Tagging version $version"
+      & git tag $version
+      & git push -f --tags
+
    }
    elseif ($repository -like "*/eXpand"){
       $version="$(Build.BuildNumber)"
@@ -26,6 +30,7 @@ steps:
    else{
       throw $repository
    }
+   Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
    Write-Host "Start build.."
    $sources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$(DXApiFeed)")   
    & $(System.DefaultWorkingDirectory)\support\build\go.ps1 -packageSources $sources -configuration "Release" -msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe" -taskList @("Release","PublishNuget") -nugetApiKey $(NuGetApiKey) -version $version -publishNugetFeed $publishNugetFeed -Repository $repository

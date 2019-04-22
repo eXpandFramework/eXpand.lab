@@ -3,7 +3,8 @@ param(
    $DXApiFeed=(Get-Feed -DX),
    $NuGetApiKey,
    $artifactstagingdirectory,
-   $BetaFeed=(Get-Feed -Beta)
+   $BetaFeed,
+   $Branch="master"
 )
 $VerbosePreference="SilentlyContinue"
 $WorkingDirectory="$PSScriptRoot\.."
@@ -35,6 +36,9 @@ $buildArgs=@{
    nugetApiKey=$nugetApiKey
    version=$version
    Repository=$repository
+}
+if ($BetaFeed){
+   $buildArgs.Add("Branch","beta")
 }
 $buildArgs
 & "$WorkingDirectory\support\build\go.ps1" @buildArgs 

@@ -181,6 +181,9 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.10.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.10\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.XAF.Modules.ViewEditMode">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ViewEditMode.1.2.9\lib\net4.6.1\Xpand.XAF.Modules.ViewEditMode.dll</HintPath>
       <Private>True</Private>
@@ -227,17 +230,24 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <Target Name="BeforeCompile">
-    <CallTarget Targets="ConvertVersion">
-    </CallTarget>
+  <Target Name="BeforeBuild">
+  <CallTarget targets="DisplayMessages"/>
+    <!-- <CallTarget Targets="ConvertVersion">
+    </CallTarget> -->
   </Target>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   
-  <Target Name="AfterBuild">
-  </Target>
+ 
   -->
+   <Target Name="AfterBuild">
+   <CallTarget targets="DisplayMessages"/>
+  </Target>
+  <Target Name="DisplayMessages" BeforeTargets="PreBuildEvent">  
+        <Message Text="Project File Name = $(MSBuildProjectFile)" />  
+        <Message Text="Project Extension = $(MSBuildProjectExtension)" />  
+    </Target>  
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>

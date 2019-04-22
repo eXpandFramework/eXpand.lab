@@ -1,11 +1,11 @@
 param(
-   $repository,
-   $DXApiFeed,
+   $repository="/eXpand.lab",
+   $DXApiFeed=(Get-Feed -DX),
    $NuGetApiKey,
    $artifactstagingdirectory,
-   $BetaFeed
+   $BetaFeed=(Get-Feed -Beta)
 )
-$VerbosePreference="continue"
+$VerbosePreference="SilentlyContinue"
 $WorkingDirectory="$PSScriptRoot\.."
 if ($repository -like "*/eXpand.lab"){
    "Finding Version.."
@@ -13,7 +13,7 @@ if ($repository -like "*/eXpand.lab"){
    $repository="eXpand.lab"
 }
 elseif ($repository -like "*/eXpand"){
-   $file=Get-Content "$WorkingDirectory\build.ps1" -Raw
+   $file=Get-Content "$WorkingDirectory\build.ps1" -Raw 
    $file -cmatch '-version "(.*)"'
    $version=$Matches[1]
    $repository="eXpand"
@@ -21,6 +21,8 @@ elseif ($repository -like "*/eXpand"){
 else{
    throw $repository
 }
+
+$VerbosePreference="continue"
 $version
 Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
 "Start build.."

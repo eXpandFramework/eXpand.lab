@@ -1,3 +1,5 @@
+[![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget.org&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpand)](https://www.nuget.org/packages?q=expandframework) [![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)](releases.expandframework.com)
+
 [![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) **Star the project if you think it deserves it.** 
 
 [![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXPand/network) **Fork the project to extend and contribute.**
@@ -5,13 +7,12 @@
 
 <img src="http://expandframework.com/images/site/logo.png" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
 |--------|--------
-[![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest)|```nuget.exe list author:eXpandFramework```
+[![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest) ![GitHub Releases](https://img.shields.io/github/downloads/expandframework/expand/latest/total.svg?label=%20)|```nuget.exe list author:eXpandFramework```
 [![](https://img.shields.io/azure-devops/build/eXpandDevOps/dc0010e5-9ecf-45ac-b89d-2d51897f3855/32/master.svg?label=Lab%20build&style=flat)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=32&branchName=18.2)|```nuget.exe list Xpand -source http://lab.nugetserver.expandframework.com```
 <sub><sup>[How do I set up a package source in Visual Studio?](https://go.microsoft.com/fwlink/?linkid=698608)</sup></sub>
 
- ![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget.org&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpand)![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)
-[![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues)
-[![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
+
+[![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues) [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
 
 
 # About
@@ -39,15 +40,14 @@ Email |     Send emails using business rules from application model without codi
 [WorkFlow](#workflow) |    Contains workflow related features (Scheduled workflows) |    Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandWorkFlow%2A)
 [System](#system-modules)|    Support multiple datastore , calculable properties at runtime ,dynamic model creation,control grid options, datacaching, web master detail, view inheritance etc.    |Y|    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandSystem%2A)
 JobSheduler    | Acts as a wrapper for the powerfull Quartz.Net, providing a flexible UI for managing Jobs at runtime |    Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandJob%2A)
-[DBMapper](#dbmapper) |    Map 14 different types of databases at runtime into worldcreator persistent objects    | Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandDBmapper%2A)
+[DBMapper](#dbmapper) |    Map 14 different types of databases at runtime into worldcreator persistent objects    | Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandWorldCreatorDbMapper)
 [IO](#io) |    Export & Import object graphs |    Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandIO%2A)
 MapView |     Google Maps integration for XAF web apps. Blog posts. |     Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandMapView%2A)
 FileAttachments |     Provides support for file system storage as per E965 |    Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandFileAttach%2A)
 Scheduler |     Please explore the XVideoRental module found in Demos/XVideoRental folder (Blog posts) |    Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandScheduler%2A)
 Reports |     Please explore the XVideoRental module found in Demos/XVideoRental folder    | Y |    N|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandReports%2A)
 Chart |      Please explore the XVideoRental module found in Demos/XVideoRental folder     |Y |    N|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandChart%2A)
-PivotGrid |      Please explore the XVideoRental module found in Demos/XVideoRental folder |    Y |    N|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandPivotGrid%2A)
-HtmlPropertyEditor |      File upload and configuration through Application Model |    N |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandHtmlPropertyEditor%2A)
+PivotGrid |      Please explore the XVideoRental module found in Demos/XVideoRental folder |    Y |    N| |      File upload and configuration through Application Model |    N |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandPivotGridWin)
 [Import Wizard](#importwizard) |    Universal module for importing excel files into any XAF application.     |Y|    N|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandImportWizard%2A)
 AuditTrail    |Configures XAF Audit Trail module using the Application Modules. (see Declarative data auditing)|    Y|     Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandAuditTrail%2A)
 [StateMachine](#statemachine)|    Enhance XAF's statemachine module in order to control transitions using permissions    |Y|    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandStatemachine%2A)
@@ -56,7 +56,7 @@ AuditTrail    |Configures XAF Audit Trail module using the Application Modules. 
 [AdditionalViewControlsProvider](#additionalviewcontrolsprovider)    |Decorate your views with custom controls|    Y    |Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandAdditionalViewControlsProvider%2A)
 MasterDetail|    XtraGrid support for master-detail data presentation using the model.    Y|    N||![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandMasterdetail%2A)
 [PivotChart](#pivotchart)|    Enhance analysis procedures / controls|    Y|    Y
-Security|    Provides extension methods, authentication providers, login remember me, custom security objects|     Y|    Y||![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandPivotChart%2A)
+Security|    Provides extension methods, authentication providers, login remember me, custom security objects|     Y|    Y||![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandPivotChar%2A)
 [Wizard](#wizardui)|    Design wizard driven views|    Y    |N|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandWizard%2A)
 [ViewVariants](#viewvariants)|    Create views without the use of model editor|    Y|    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandViewVariants%2A)
 [Validation](#validation)|    More rules , permission validation, warning/info support, Action contexts etc|    Y|    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandValidation%2A)

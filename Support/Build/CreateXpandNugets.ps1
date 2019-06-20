@@ -5,8 +5,8 @@ Param (
 )
 import-module XpandPwsh -prefix X -force
 $monoCecil = Use-XMonoCecil 
-set-location $PSScriptRoot
-$projects = Get-ChildItem "$PSScriptRoot..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
+Write-Host "root=$root"
+$projects = Get-ChildItem "$PSScriptRoot\..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
 $nuspecpathsPath = "$PSScriptRoot\..\Nuspec"
 function AddDependency {
     param($id, $nuspecpathContent, $packageVersion)
@@ -112,7 +112,7 @@ function Update-NuspecDependencies {
             Update-Nuspec @uArgs
             
 
-            $metadata.dependencies.dependency
+            
             
         }
     }
@@ -202,7 +202,7 @@ function PackNuspec($Nuspecpath, $ReadMe = $true) {
     & $Nuget Pack $Nuspecpath.FullName -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
 }
 
-Get-ChildItem "$PSScriptRoot..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
     Write-Host "Updating $($_.BaseName).nuspec" -f Blue
     UpdateNuspec $_
     $readMe = $_.BaseName -notmatch "lib" -and $_.BaseName -notmatch "easytest"
@@ -212,7 +212,7 @@ Get-ChildItem "$PSScriptRoot..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
 
 $libNuspecPath=[System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")
 [xml]$libNuspec=Get-Content $libNuspecPath
-[xml]$libCsproj=Get-Content "..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj"
+[xml]$libCsproj=Get-Content "$PSScriptRoot\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj"
 $libTargetFramework=$libCsproj.project.propertygroup.targetFramework
 $ns = New-Object System.Xml.XmlNamespaceManager($libNuspec.NameTable)
 $ns.AddNamespace("ns", $libNuspec.DocumentElement.NamespaceURI)

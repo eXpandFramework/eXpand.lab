@@ -18,8 +18,8 @@ namespace Xpand.Persistent.Base {
                 try {
                     types = assembly.GetTypes();
                 }
-                catch (Exception) {
-                    // ignored
+                catch (Exception e) {
+                    Tracing.Tracer.LogError(e);
                 }
 
                 return types;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -6,14 +7,16 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Scheduler;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base.General;
-using DevExpress.Utils.Controls;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Native;
+using Fasterflect;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
+using Xpand.XAF.Modules.ModelMapper.Services;
+using Xpand.XAF.Modules.ModelMapper.Services.Predefined;
 
 namespace Xpand.ExpressApp.Scheduler.Model {
-    public abstract class SchedulerModelAdapterControllerBase : ModelAdapterController, IModelExtender {
+    public abstract class SchedulerModelAdapterControllerBase : ViewController, IModelExtender {
 
         public SchedulerListEditorBase SchedulerListEditor {
             get {
@@ -26,11 +29,10 @@ namespace Xpand.ExpressApp.Scheduler.Model {
             base.OnViewControlsCreated();
             if (SchedulerListEditor != null) {
                 ((ListView)View).CollectionSource.CriteriaApplied += CollectionSourceOnCriteriaApplied;
-                new SchedulerListEditorModelSynchronizer(SchedulerControl(), (IModelListViewOptionsScheduler)View.Model, Labels(), Statuses()).ApplyModel();
                 SchedulerListEditor.ResourceDataSourceCreating += SchedulerListEditorOnResourceDataSourceCreating;
             }
-            var detailView = View as DetailView;
-            if (detailView != null && View.ObjectTypeInfo.Implements<IEvent>()) {
+
+            if (View is DetailView && View.ObjectTypeInfo.Implements<IEvent>()) {
                 Frame.GetController<LinkToListViewController>(controller => controller.LinkChanged += LinkToListViewControllerOnLinkChanged);
             }
         }
@@ -46,9 +48,20 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         }
 
         void LinkToListViewControllerOnLinkChanged(object sender, EventArgs eventArgs) {
+            void Bind(Link link1, string modelNodeId, IEnumerable storage){
+                var modelNodes = ((IEnumerable<IModelNode>) link1.ListView.Model.GetNode(PredefinedMap.SchedulerControl)
+                    .GetNode("Appointments").GetNode(modelNodeId)).ToArray();
+                foreach (var instance in storage){
+                    var modelNode = modelNodes.First(node => node.Id() == (string) instance.GetPropertyValue("Id"));
+                    modelNode.BindTo(instance);
+                }
+            }
+
             var link = ((LinkToListViewController) sender).Link;
             if (SchedulerListEditor!=null && link?.ListView != null) {
-                new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
+                Bind(link, "Labels", Labels());
+                Bind(link, "Statuses", Statuses());
+//                new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
             }	
         }
 
@@ -57,9 +70,9 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         protected abstract IAppointmentLabelStorage Labels();
 
         protected abstract IInnerSchedulerControlOwner SchedulerControl();
-
+        
         void SchedulerListEditorOnResourceDataSourceCreating(object sender, ResourceDataSourceCreatingEventArgs e) {
-            var resourceListView = ((IModelListViewOptionsScheduler)View.Model).ResourceListView;
+            var resourceListView = ((IModelListViewSchedulerEx) View.Model.GetNode(PredefinedMap.SchedulerControl.ToString())).ResourceListView;
             if (resourceListView != null) {
                 var collectionSourceBase = Application.CreateCollectionSource(Application.CreateObjectSpace(e.ResourceType), e.ResourceType, resourceListView.Id, false, CollectionSourceMode.Proxy);
                 Application.CreateListView(resourceListView.Id, collectionSourceBase, true);
@@ -67,10 +80,10 @@ namespace Xpand.ExpressApp.Scheduler.Model {
                 e.Handled = true;
             }
         }
-
+        
         void CollectionSourceOnCriteriaApplied(object sender, EventArgs eventArgs) {
             if (((ListView)View).CollectionSource.Criteria.ContainsKey("ActiveViewFilter")) {
-                var modelListViewOptionsScheduler = ((IModelListViewOptionsScheduler)View.Model);
+                var modelListViewOptionsScheduler = ((IModelListViewSchedulerEx)View.Model);
                 if (modelListViewOptionsScheduler.ResourcesOnlyWithAppoitments) {
                     var storage = Storage();
                     storage.BeginUpdate();
@@ -90,54 +103,56 @@ namespace Xpand.ExpressApp.Scheduler.Model {
 
         protected abstract IEnumerable<Appointment> Items();
         protected abstract ISchedulerStorageBase Storage();
-
+        
         protected void SynchMenu(object menu) {
-            var popupMenus = ((IModelListViewOptionsScheduler) View.Model).OptionsScheduler.PopupMenuItems;
+            var popupMenus = ((IEnumerable<IModelNode>) View.Model.GetNode(PredefinedMap.SchedulerControl.ToString()).GetNode(SchedulerControlService.PopupMenusMoelPropertyName));
             foreach (var popupMenu in popupMenus){
                 var component = GetMenu(menu,popupMenu);
-                if (component != null) new SchedulerPopupMenuModelSynchronizer(component, popupMenu).ApplyModel();
+                if (component != null) {
+                    popupMenu.BindTo(component);
+                }
             }
         }
 
-        protected virtual object GetMenu(object popupMenu, IModelSchedulerPopupMenuItem modelMenu){
+        protected virtual object GetMenu(object popupMenu, IModelNode modelMenu){
             return popupMenu;
         }
-
+        
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelListView, IModelListViewOptionsScheduler>();
+            extenders.Add<IModelListView, IModelListViewSchedulerEx>();
 
-            var builder = new InterfaceBuilder(extenders);
-            var interfaceBuilderDatas = CreateBuilderData();
+//            var builder = new InterfaceBuilder(extenders);
+//            var interfaceBuilderDatas = CreateBuilderData();
             
-            Build(builder, interfaceBuilderDatas);
+//            Build(builder, interfaceBuilderDatas);
         }
 
-        protected abstract void Build(InterfaceBuilder builder, IEnumerable<InterfaceBuilderData> interfaceBuilderDatas);
+//        protected abstract void Build(InterfaceBuilder builder, IEnumerable<InterfaceBuilderData> interfaceBuilderDatas);
 
 
-        protected virtual IEnumerable<InterfaceBuilderData> CreateBuilderData() {
-            yield return new InterfaceBuilderData(SchedulerControlType()) {
-                Act = info =>{
-                    if (info.Name == "Item"&&!info.PropertyType.BehaveLikeValueType())
-                        return false;
-                    if (info.Name == "DataStorage") {
-                        info.SetName("Storage");
-                        info.SetPropertyType(typeof(SchedulerStorage));
-                    }
-                    info.RemoveInvalidTypeConverterAttributes("DevExpress.XtraScheduler.Design");
-                    return info.DXFilter(BaseSchedulerControlTypes(), typeof(object));
-                }
-            };
-        }
+//        protected virtual IEnumerable<InterfaceBuilderData> CreateBuilderData() {
+//            yield return new InterfaceBuilderData(SchedulerControlType()) {
+//                Act = info =>{
+//                    if (info.Name == "Item"&&!info.PropertyType.BehaveLikeValueType())
+//                        return false;
+//                    if (info.Name == "DataStorage") {
+//                        info.SetName("Storage");
+//                        info.SetPropertyType(typeof(SchedulerStorage));
+//                    }
+//                    info.RemoveInvalidTypeConverterAttributes("DevExpress.XtraScheduler.Design");
+//                    return info.DXFilter(BaseSchedulerControlTypes(), typeof(object));
+//                }
+//            };
+//        }
 
-        protected abstract Type SchedulerControlType();
+//        protected abstract Type SchedulerControlType();
 
-        protected virtual Type[] BaseSchedulerControlTypes() {
-            return new[]{
-                typeof (ResourceStorageBase), typeof (AppointmentMappingInfo), typeof (AppointmentStorageBase),
-                typeof (BaseOptions), typeof (SchedulerStorageBase),typeof (ResourceMappingInfo)
-            };
-        }
+//        protected virtual Type[] BaseSchedulerControlTypes() {
+//            return new[]{
+//                typeof (ResourceStorageBase), typeof (AppointmentMappingInfo), typeof (AppointmentStorageBase),
+//                typeof (BaseOptions), typeof (SchedulerStorageBase),typeof (ResourceMappingInfo)
+//            };
+//        }
     }
 
 }

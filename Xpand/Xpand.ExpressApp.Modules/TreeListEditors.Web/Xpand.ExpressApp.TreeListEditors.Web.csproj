@@ -12,42 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.TreeListEditors.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.ASPxTreeList.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.ASPxTreeList.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
@@ -68,17 +32,23 @@
   <ItemGroup>
     <Compile Update="Controllers\AutoExpandAllTreeNodesController.cs" />
     <Compile Update="Controllers\ColumnChooserTreeListEditorController.cs" />
-    <Compile Update="Model\TreeListModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Model\TreeNavigationOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="XpandTreeListEditorsAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.TreeListEditors.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>

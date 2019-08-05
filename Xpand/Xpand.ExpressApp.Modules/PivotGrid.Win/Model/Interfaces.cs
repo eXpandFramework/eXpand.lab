@@ -7,30 +7,26 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.PivotGrid;
-using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
 using System.Linq;
 using DevExpress.XtraLayout.Utils;
 using DevExpress.XtraPivotGrid;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
-using Xpand.Persistent.Base.General.Model.Options;
-using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
-using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.XAF.Modules.ModelMapper;
 
 namespace Xpand.ExpressApp.PivotGrid.Win.Model {
 
 
-    public interface IModelOptionsColumnPivotGridField : IModelColumnViewColumnOptions {
+//    public interface IModelOptionsColumnPivotGridField : IModelColumnViewColumnOptions {
+//
+//    }
 
-    }
-
-    [ModelAbstractClass]
-    public interface IModelColumnOptionsPivotGridField : IModelColumnOptionsColumnView {
-        IModelOptionsColumnPivotGridField OptionsColumnPivotGridField { get; }
-    }
+//    [ModelAbstractClass]
+//    public interface IModelColumnOptionsPivotGridField : IModelColumnOptionsColumnView {
+//        IModelOptionsColumnPivotGridField OptionsColumnPivotGridField { get; }
+//    }
 
     public interface IModelPivotGridSelection : IModelNode {
         Rectangle Rectangle { get; set; }
@@ -85,7 +81,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
         #endregion
     }
 
-    public interface IModelOptionsPivotGrid : IModelOptionsColumnView {
+    public interface IModelPivotGridExtender  {
         IModelPivotGridGeneral General { get; }
         IModelPivotRules Rules { get; }
         IModelPivotGridSelection Selection { get; }
@@ -154,7 +150,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
 
     [ModelDisplayName("SpinEdit")]
     public interface IModelPivotSpinEditRule : IModelPivotSelectionRule {
-        IModelRepositoryItemSpinEdit SpinEdit { get; }
+//        IModelRepositoryItemSpinEdit SpinEdit { get; }
     }
 
     [ModelAbstractClass]
@@ -163,17 +159,17 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
         Point End { get; set; }
     }
     [ModelAbstractClass]
-    public interface IModelPivotRule : IModelNodeEnabled {
+    public interface IModelPivotRule : IModelNodeDisabled {
 
     }
-    [ModelAbstractClass]
-    public interface IModelListViewOptionsPivotGrid : IModelListViewOptionsColumnView {
-        [ModelBrowsable(typeof(PivotGridEditorVisibilityCalculator))]
-        IModelOptionsPivotGrid OptionsPivotGrid { get; }
-    }
+//    [ModelAbstractClass]
+//    public interface IModelListViewOptionsPivotGrid : IModelListViewOptionsColumnView {
+//        [ModelBrowsable(typeof(PivotGridEditorVisibilityCalculator))]
+//        IModelPivotGridExtender OptionsPivotGrid { get; }
+//    }
 
-    public class PivotGridEditorVisibilityCalculator : EditorTypeVisibilityCalculator<PivotGridListEditor,IModelListView> {
-    }
+//    public class PivotGridEditorVisibilityCalculator : EditorTypeVisibilityCalculator<PivotGridListEditor,IModelListView> {
+//    }
 
     public interface IModelDrawCellRule : IModelPivotSelectionRule {
         [DataSourceProperty("DrawCellTypes")]

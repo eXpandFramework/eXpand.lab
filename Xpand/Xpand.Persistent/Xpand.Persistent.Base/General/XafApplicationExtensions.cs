@@ -52,6 +52,7 @@ namespace Xpand.Persistent.Base.General {
             DisableObjectSpaceProderCreation = true;
         }
         private static readonly object Locker=new object();
+        
 
         public static void ShowView(this XafApplication application, View view) {
             application.ShowViewStrategy.ShowView(new ShowViewParameters(view),new ShowViewSource(application.MainWindow,null) );

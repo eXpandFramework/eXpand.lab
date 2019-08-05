@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,10 +10,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using EnvDTE80;
 using Microsoft.Win32;
-using Mono.Cecil;
 using Xpand.VSIX.Commands;
 using Xpand.VSIX.Extensions;
-using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Wizard;
 
 namespace Xpand.VSIX.Options{
@@ -55,7 +52,7 @@ namespace Xpand.VSIX.Options{
                     Instance.DisableExceptions = false;
                     Instance.SourceCodeInfos.Add(new SourceCodeInfo { ProjectRegex = "Xpand.*csproj", RootPath = ModuleManager.GetXpandDllPath() + @"\..\" });                
                 }
-                ExtractME();
+                
                 if (!Instance.DteCommandsBindings){
                     Instance.DteCommandsBindings = true;
                     Instance.DteCommands.Add(new DteCommand(){Command = nameof(BuildSelectionCommand),Shortcut = "Global::Ctrl+Alt+Enter"});
@@ -80,29 +77,6 @@ namespace Xpand.VSIX.Options{
         }
 
         public bool DteCommandsBindings{ get; set; }
-
-        private static void ExtractME(){
-            var resourceStream = typeof(ModelToolWindow).Assembly.GetManifestResourceStream("Xpand.VSIX.ModelEditor.Xpand.ExpressApp.ModelEditor.exe");
-            var mePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Path) + "", "Xpand.ExpressApp.ModelEditor.exe");
-            var exists = File.Exists(mePath);
-            if (exists && AssemblyDefinition.ReadAssembly(mePath).Name.Version <
-                new Version(XpandAssemblyInfo.FileVersion)) {
-                try{
-                    File.Delete(mePath);
-                }
-                catch (Exception e){
-                    DTE.LogError(e.ToString());
-                }
-            }
-            if (!exists) {
-                Debug.Assert(resourceStream != null, "resourceStream != null");
-                byte[] bytes = new byte[(int)resourceStream.Length];
-                resourceStream.Read(bytes, 0, bytes.Length);
-                File.WriteAllBytes(mePath, bytes);
-            }
-            if (!Instance.MEs.Any())
-                Instance.MEs.Add(new ME { Path = mePath });
-        }
 
         public static OptionClass Instance { get; }
 
@@ -235,7 +209,7 @@ namespace Xpand.VSIX.Options{
         public void AddProjectPaths(){
             if (Directory.Exists(RootPath)) {
                 var projectPaths = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories)
-                    .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", ProjectRegex));
+                    .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", $@"{ProjectRegex}\z"));
                 var paths = projectPaths.Select(path => new ProjectInfo() { Path = path, OutputPath = GetOutPutPath(path) }).Where(info => File.Exists(info.OutputPath)).ToArray();
                 ProjectPaths.Clear();
                 ProjectPaths.AddRange(paths);
@@ -249,6 +223,9 @@ namespace Xpand.VSIX.Options{
                     Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
                     var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
                     var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
+                    if (string.IsNullOrEmpty(assemblyName)) {
+                        assemblyName = Path.GetFileNameWithoutExtension(projectPath);
+                    }
                     return Path.Combine(outPutPath, assemblyName + ".dll");
                 }
 

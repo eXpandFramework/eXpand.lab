@@ -57,6 +57,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         string _type;
         [NonPersistent]
         [EditorAlias(EditorAliases.StringPropertyEditor)]
+        [NonCloneable]
         public string Type {
             get => _type;
             set => SetPropertyValue(nameof(Type), ref _type, value);

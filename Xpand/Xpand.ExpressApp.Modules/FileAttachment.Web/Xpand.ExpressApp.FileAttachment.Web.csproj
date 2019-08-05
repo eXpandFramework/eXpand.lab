@@ -14,42 +14,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.FileAttachment.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp.FileAttachment">
@@ -82,5 +46,18 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.1.5" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.34" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>

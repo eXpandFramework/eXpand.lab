@@ -29,6 +29,9 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         public ExcelImport(Session session) : base(session){
         }
 
+        [Association("ExcelImport-ExcelImportKeyMaps")]
+        public XPCollection<ExcelImportKeyMap> KeyMaps => GetCollection<ExcelImportKeyMap>(nameof(KeyMaps));
+
         [Association("ExcelImport-DroppedFiles")]
         [Aggregated]
         [InvisibleInAllViews]
@@ -56,6 +59,13 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         [Browsable(false)]
         public bool CanImport => ExcelColumnMaps.All(map => map.MemberTypeValues.Count > 0);
 
+        int? _abortThreshold;
+        [RuleRange(0,100,SkipNullOrEmptyValues = true)]
+        public int? AbortThreshold {
+            get => _abortThreshold;
+            set => SetPropertyValue(nameof(AbortThreshold), ref _abortThreshold, value);
+        }
+
         int _headerRows;
         
         public int HeaderRows{
@@ -72,6 +82,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         string _autoImportFrom;
         [InvisibleInAllViews]
+        [Size(SizeAttribute.Unlimited)]
         public string AutoImportFrom{
             get => _autoImportFrom;
             set => SetPropertyValue(nameof(AutoImportFrom), ref _autoImportFrom, value);

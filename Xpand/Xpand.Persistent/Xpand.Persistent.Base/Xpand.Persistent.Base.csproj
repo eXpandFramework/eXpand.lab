@@ -22,111 +22,34 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.CodeDom" Version="4.5.0" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Images" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Pdf.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.34" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Images.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Images.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Pdf.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Pdf.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.BaseImpl.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Export">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraBars.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\Support\_third_party_assemblies\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
@@ -157,9 +80,7 @@
     <Compile Update="General\Web\ActionsClientScriptController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="General\Web\CustomizeASPxPopupController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="General\Web\CustomizeASPxPopupController.cs" />
     <Compile Update="General\Controllers\EasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -196,9 +117,7 @@
     <Compile Update="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="ModelAdapter\PropertyEditorControlAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ModelAdapter\PropertyEditorControlAdapterController.cs" />
     <Compile Update="General\Controllers\XpandLinkToListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -234,5 +153,13 @@
     <Compile Remove="ModelAdapter\Logic\ModelAdaptorRule.cs" />
     <Compile Remove="Validation\ConditionalRequired\ConditionalIsRequiredAttribute.cs" />
     <Compile Remove="Validation\ConditionalRequired\RuleConditionalRequired.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\netstandard.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\netstandard.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

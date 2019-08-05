@@ -1,8 +1,10 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.Security;
 #if !EASYTEST
 using DevExpress.ExpressApp.Win.Utils;
@@ -15,6 +17,7 @@ namespace XVideoRental.Win {
         /// </summary>
         [STAThread]
         static void Main() {
+            ModelApplicationCreator.DebugMode = true;
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
@@ -35,15 +38,17 @@ namespace XVideoRental.Win {
             }
             winApplication.SplashScreen = new DXSplashScreen();
 #endif
-
+            
             try {
                 winApplication.UseOldTemplates=false;
                 winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard),typeof(AuthenticationStandardLogonParameters));
+
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {
                 winApplication.HandleException(e);
             }
         }
+
     }
 }

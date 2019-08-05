@@ -17,16 +17,10 @@ properties {
 }
 
 
-Task Release -depends Clean,InstallDX, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
-Task Lab -depends Clean,InstallDX, Init,Version,CompileModules
+Task Release -depends Clean, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
+Task Lab -depends Clean,Init,Version,CompileModules
 
-Task InstallDX{
-    InvokeScript{
-        $version
-        $dxversion=$(Get-XDevExpressVersion -Version $version -build)
-        Install-XDevExpress -binPath "$PSScriptRoot\..\..\Xpand.dll" -dxSources $packageSources -sourcePath $root -dxVersion $dxversion
-    }
-}
+
 Task Init  {
     InvokeScript{
         Write-Host "Remove directories"
@@ -81,7 +75,7 @@ Task PackNuget{
 
 Task VSIX{
     InvokeScript{
-        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version
+        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version ($packageSources -join ";")
     }  
 }
 
@@ -108,16 +102,22 @@ Task CompileModules{
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup
         $projects=($group.CoreProjects|GetProjects)+ ($group.ModuleProjects|GetProjects)
-        $projects|ForEach-Object{
-            $fileName=(Get-Item $_).Name
-            write-host "Building $fileName..." -f "Blue"
-            "packageSources=$packageSources"
-            & dotnet build "$_" --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";")
-            if ($LASTEXITCODE) {
-                throw
-            }
+        # $projects|ForEach-Object{
+        #     $fileName=(Get-Item $_).Name
+        #     write-host "Building $fileName..." -f "Blue"
+        #     "packageSources=$packageSources"
+        #     dotnet restore "$_" --source ($packageSources -join ";")
+        #     dotnet msbuild "$_" @msbuildArgs
+        #     if ($LASTEXITCODE) {
+        #         throw
+        #     }
+            
+        # }
+        dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";")
+        dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @msbuildArgs
+        if ($LASTEXITCODE){
+            throw
         }
-
         
         Write-Host "Compiling helper projects..." -f "Blue"
         $helperProjects=($group.HelperProjects|GetProjects)
@@ -183,7 +183,9 @@ function BuildProjects($projects,$useMsBuild ){
         $bargs=(@("$_","/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs.Split(";"))
         if (!$useMsBuild){
             "packageSources=$packageSources"
-            $o=& dotnet build "$_" --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";")
+            dotnet restore "$_" --source ($packageSources -join ";")
+            dotnet msbuild "$_" @msbuildArgs
+            # $o=& dotnet build "$_"  --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";") /WarnAserror
         }
         else {
             $o=& $msbuild $bargs

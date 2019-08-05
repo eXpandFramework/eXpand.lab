@@ -11,17 +11,19 @@ using Fasterflect;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {
     public class ChartControlController : ViewController<ListView> {
+        private IModelOptionsChartEx _modelOptionsChartEx;
+
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (ChartControl != null) {
+                _modelOptionsChartEx = ((IModelOptionsChartEx) View.Model.GetNode(XpandChartWinModule.ChartControlMapName));
                 ChartControl.ObjectHotTracked += ChartControlOnObjectHotTracked;
                 ChartControl.ObjectSelected += ChartControlOnObjectSelected;
             }
         }
-
+        
         void ChartControlOnObjectSelected(object sender, HotTrackEventArgs hotTrackEventArgs) {
-            var modelChartHitInfo = ((IModelListViewOptionsChart)View.Model).OptionsChart.SelectionHitInfo;
-            ApplyHitInfoRules(hotTrackEventArgs, modelChartHitInfo);
+            ApplyHitInfoRules(hotTrackEventArgs, _modelOptionsChartEx.HotTrackHitInfo);
             if (!hotTrackEventArgs.Cancel && hotTrackEventArgs.HitInfo.InSeries) {
                 var argumentDataMember = View.ObjectTypeInfo.FindMember(((SeriesBase)hotTrackEventArgs.Object).ArgumentDataMember);
                 if (argumentDataMember != null) {
@@ -38,7 +40,7 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
         }
 
         void ChartControlOnObjectHotTracked(object sender, HotTrackEventArgs hotTrackEventArgs) {
-            var modelChartHitInfo = ((IModelListViewOptionsChart)View.Model).OptionsChart.HotTrackHitInfo;
+            var modelChartHitInfo = _modelOptionsChartEx.HotTrackHitInfo;
             ApplyHitInfoRules(hotTrackEventArgs, modelChartHitInfo);
         }
 
@@ -57,20 +59,10 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
             }
         }
 
-        public ChartControl ChartControl {
-            get {
-                return PivotGridListEditor != null ? PivotGridListEditor.ChartControl
-                           : (ChartListEditor != null ? ChartListEditor.ChartControl : null);
-            }
-        }
+        public ChartControl ChartControl =>PivotGridListEditor != null ? PivotGridListEditor.ChartControl: ChartListEditor?.ChartControl;
 
-        PivotGridListEditor PivotGridListEditor {
-            get { return View != null ? View.Editor as PivotGridListEditor : null; }
-        }
-        ChartListEditor ChartListEditor {
-            get { return View != null ? View.Editor as ChartListEditor : null; }
-        }
+        PivotGridListEditor PivotGridListEditor => View?.Editor as PivotGridListEditor;
 
-
+        ChartListEditor ChartListEditor => View?.Editor as ChartListEditor;
     }
 }

@@ -11,7 +11,7 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
     [ModelAbstractClass]
-    public interface IModelPivotTopObject : IModelOptionsPivotGrid {
+    public interface IModelPivotTopObject : IModelPivotGridExtender {
         IModelTopObject TopObject { get; }
     }
 
@@ -26,9 +26,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         object _topObject;
         object _currentObject;
 
-        public new IModelPivotTopObject Model {
-            get { return (IModelPivotTopObject)base.Model.OptionsPivotGrid; }
-        }
+        public IModelPivotTopObject Model => (IModelPivotTopObject)View.Model.GetNode(XpandPivotGridWinModule.PivotGridControlModelName);
 
         #region Implementation of IDataSourceSelectionChanged
         IList _selectedObjects;
@@ -137,7 +135,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         #endregion
         #region Implementation of IModelExtender
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelOptionsPivotGrid, IModelPivotTopObject>();
+//            extenders.Add<IModelPivotGridExtender, IModelPivotTopObject>();
         }
         #endregion
     }

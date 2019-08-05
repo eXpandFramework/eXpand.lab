@@ -12,22 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -61,5 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\DevExpress.XtraEditors.Images.Information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>

@@ -14,11 +14,11 @@ using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {
 
-    public interface IModelOptionsChart : IModelOptionsColumnView {
-        IModelSeriesCollection Series { get; }
+    public interface IModelOptionsChartEx {
+//        IModelSeriesCollection Series { get; }
         IModelChartHitInfo HotTrackHitInfo { get; }
         IModelChartHitInfo SelectionHitInfo { get; }
-        IModelChartDiagrams Diagrams { get; }
+//        IModelChartDiagrams Diagrams { get; }
     }
 
     public interface IModelChartHitInfo : IModelNodeEnabled {
@@ -35,77 +35,77 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
         bool? InSeriesLabel { get; set; }
         bool? InSeriesTitle { get; set; }
     }
-    public interface IModelSeriesCollection : IModelNode, IModelList<IModelSeries> {
-    }
+//    public interface IModelSeriesCollection : IModelNode, IModelList<IModelSeries> {
+//    }
 
-    public interface IModelSeries : IModelNode {
-        IModelDataFilters DataFilters { get; }
-        [DataSourceProperty("DataSourceListViews")]
-        IModelListView DataSourceListView { get; set; }
-        [Browsable(false)]
-        IModelList<IModelListView> DataSourceListViews { get; }
-    }
+//    public interface IModelSeries : IModelNode {
+//        IModelDataFilters DataFilters { get; }
+//        [DataSourceProperty("DataSourceListViews")]
+//        IModelListView DataSourceListView { get; set; }
+//        [Browsable(false)]
+//        IModelList<IModelListView> DataSourceListViews { get; }
+//    }
 
-    [DomainLogic(typeof(IModelSeries))]
-    public class IModelSeriesDomainLogic {
-        public static IModelList<IModelListView> Get_DataSourceListViews(IModelSeries modelSeries) {
-            return new CalculatedModelNodeList<IModelListView>(modelSeries.Application.Views.OfType<IModelListView>());
-        }
-    }
+//    [DomainLogic(typeof(IModelSeries))]
+//    public class IModelSeriesDomainLogic {
+//        public static IModelList<IModelListView> Get_DataSourceListViews(IModelSeries modelSeries) {
+//            return new CalculatedModelNodeList<IModelListView>(modelSeries.Application.Views.OfType<IModelListView>());
+//        }
+//    }
 
     public interface IModelDataFilters : IModelNode, IModelList<IModelDataFilter> {
     }
 
-    public interface IModelChartDiagrams : IModelNode, IModelList<IModelChartDiargam> {
-    }
+//    public interface IModelChartDiagrams : IModelNode, IModelList<IModelChartDiargam> {
+//    }
 
-    [ModelAbstractClass]
-    public interface IModelChartDiargam : IModelNodeEnabled {
-    }
+//    [ModelAbstractClass]
+//    public interface IModelChartDiargam : IModelNodeEnabled {
+//    }
 
-    [ModelDisplayName("Diagram3D")]
-    public interface IModelChartDiagram3D : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("SimpleDiagram3D")]
-    public interface IModelChartSimpleDiagram3D : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("FunnelDiagram3D")]
-    public interface IModelChartFunnelDiagram3D : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("XYDiagram3D")]
-    public interface IModelChartXYDiagram3D : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("RadarDiagram3D")]
-    public interface IModelChartRadarDiagram : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("PollarDiagram")]
-    public interface IModelChartPolarDiagram : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("SimpleDiagram")]
-    public interface IModelChartSimpleDiagram : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("XYDiagram2D")]
-    public interface IModelChartXYDiagram2D : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("SwiftPlotDiagram")]
-    public interface IModelChartSwiftPlotDiagram : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("XYDiagram")]
-    public interface IModelChartXYDiagram : IModelChartDiargam {
-    }
-
-    [ModelDisplayName("GanttDiagram")]
-    public interface IModelChartGanttDiagram : IModelChartDiargam {
-    }
+//    [ModelDisplayName("Diagram3D")]
+//    public interface IModelChartDiagram3D : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("SimpleDiagram3D")]
+//    public interface IModelChartSimpleDiagram3D : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("FunnelDiagram3D")]
+//    public interface IModelChartFunnelDiagram3D : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("XYDiagram3D")]
+//    public interface IModelChartXYDiagram3D : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("RadarDiagram3D")]
+//    public interface IModelChartRadarDiagram : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("PollarDiagram")]
+//    public interface IModelChartPolarDiagram : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("SimpleDiagram")]
+//    public interface IModelChartSimpleDiagram : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("XYDiagram2D")]
+//    public interface IModelChartXYDiagram2D : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("SwiftPlotDiagram")]
+//    public interface IModelChartSwiftPlotDiagram : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("XYDiagram")]
+//    public interface IModelChartXYDiagram : IModelChartDiargam {
+//    }
+//
+//    [ModelDisplayName("GanttDiagram")]
+//    public interface IModelChartGanttDiagram : IModelChartDiargam {
+//    }
 
     public interface IModelDataFilter : IModelNode {
         string ColumnName { get; set; }
@@ -115,19 +115,19 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
         decimal Value { get; set; }
     }
 
-    [ModelAbstractClass]
-    public interface IModelListViewOptionsChart : IModelListViewOptionsColumnView {
-        [ModelBrowsable(typeof(ChartEditorVisibilityCalculator))]
-        IModelOptionsChart OptionsChart { get; }
-    }
+//    [ModelAbstractClass]
+//    public interface IModelListViewOptionsChart : IModelListViewOptionsColumnView {
+//        [ModelBrowsable(typeof(ChartEditorVisibilityCalculator))]
+//        IModelOptionsChartEx OptionsChart { get; }
+//    }
 
-    public class ChartEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
-        #region Overrides of EditorTypeVisibilityCalculator
-        public override bool IsVisible(IModelNode node, string propertyName) {
-            Type editorType = EditorType(node);
-            return new[] { typeof(ChartListEditor), typeof(PivotGridListEditor) }.Any(type => type.IsAssignableFrom(editorType));
-        }
-        #endregion
-    }
+//    public class ChartEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
+//        #region Overrides of EditorTypeVisibilityCalculator
+//        public override bool IsVisible(IModelNode node, string propertyName) {
+//            Type editorType = EditorType(node);
+//            return new[] { typeof(ChartListEditor), typeof(PivotGridListEditor) }.Any(type => type.IsAssignableFrom(editorType));
+//        }
+//        #endregion
+//    }
 
 }

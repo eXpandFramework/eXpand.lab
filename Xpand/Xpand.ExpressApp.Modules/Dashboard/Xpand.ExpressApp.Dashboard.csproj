@@ -13,71 +13,30 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Ryder" Version="0.8.0" />
-    <PackageReference Include="System.Reactive" Version="4.1.5" />
+    <PackageReference Include="System.Reactive" Version="4.1.6" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.37" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.37" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.DataAccess" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.26" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.42" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.42" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Dashboards.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Dashboards.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Sparkline.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Sparkline.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.DataAccess.v19.1.UI">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v19.1.UI.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Dashboard.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.DataAccess.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>

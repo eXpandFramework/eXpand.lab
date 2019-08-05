@@ -15,38 +15,6 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.HtmlPropertyEditor.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.ASPxHtmlEditor.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp.Logic">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Logic.dll</HintPath>
@@ -62,9 +30,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Model\HtmlEditorModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Model\HtmlEditorModelAdapterController.cs" />
     <Compile Update="DialogForms\HtmlEditorCustomDialogTemlate.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -92,5 +58,17 @@
   <ItemGroup>
     <Compile Remove="Model\ModelAdaptor\IModelAdaptorHtmlEditorRule.cs" />
     <Compile Remove="Model\ModelAdaptor\IModelModelAdaptorHtmlEditorRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.34" />
+    <PackageReference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
   </ItemGroup>
 </Project>

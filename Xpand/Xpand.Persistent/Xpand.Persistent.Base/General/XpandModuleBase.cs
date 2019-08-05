@@ -84,10 +84,15 @@ namespace Xpand.Persistent.Base.General {
         private List<KeyValuePair<string, ModelDifferenceStore>> _extraDiffStores;
         private bool _loggedOn;
         private static readonly TypesInfo AdditionalTypesTypesInfo;
+        private static readonly string NetstandardPath;
         public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
             AdditionalTypesTypesInfo=new TypesInfo();
+            NetstandardPath = $@"{Path.GetTempPath()}\netstandard.dll";
+            using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
+                manifestResourceStream.SaveToFile(NetstandardPath);
+            }
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
@@ -161,9 +166,9 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed<IDashboardInteractionUser>("DashboardUser")) {
                 declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(DashboardInteractionController), typeof(WebDashboardRefreshController) });
             }
-            if (!Executed<IModuleSupportUploadControl>("SupportUploadControl")) {
-                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
-            }
+//            if (!Executed<IModuleSupportUploadControl>("SupportUploadControl")) {
+//                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
+//            }
             if (!Executed<IModifyModelActionUser>("ModifyModelActionControllerTypes")) {
                 declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(ActionModifyModelController), typeof(ResetViewModelController), typeof(ModelConfigurationController) });
             }
@@ -183,7 +188,7 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
                 declaredControllerTypes =declaredControllerTypes.Union(new[]{
                         typeof (NavigationContainerWebController), typeof (ActionsClientScriptController),typeof(ActionsClientConfirmationController),
-                        typeof (CustomizeASPxPopupController),typeof(SyntaxHighlightController)
+                        typeof(SyntaxHighlightController)
                     });
 
             return declaredControllerTypes;
@@ -284,7 +289,7 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelApplication, IModelApplicationModule>();
                 extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
                 extenders.Add<IModelApplication, IModelApplicationViews>();
-                extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
+//                extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
                 extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
             }
 
@@ -537,12 +542,18 @@ namespace Xpand.Persistent.Base.General {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            moduleManager.AddModelReferences(NetstandardPath);
             OnApplicationModulesManagerSetup(new ApplicationModulesManagerSetupArgs(moduleManager));
             if (Executed("Setup2"))
                 return;
             if (RuntimeMode)
                 ConnectionString = this.GetConnectionString();
             XafTypesInfo.Instance.LoadTypes(typeof(XpandModuleBase).Assembly);
+        }
+
+        static string ApplicationPath(){
+            var setupInformation = AppDomain.CurrentDomain.SetupInformation;
+            return setupInformation.PrivateBinPath??setupInformation.ApplicationBase;
         }
 
         public override void Setup(XafApplication application) {
@@ -795,7 +806,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private void PopupWindowManagerOnPopupShowing(object sender, PopupShowingEventArgs e){
-            e.SourceFrame.RegisterController(Application.CreateController<CustomizeASPxPopupController>());
+//            e.SourceFrame.RegisterController(Application.CreateController<CustomizeASPxPopupController>());
         }
 
         private void ApplicationOnObjectSpaceCreated(object sender1, ObjectSpaceCreatedEventArgs e) {

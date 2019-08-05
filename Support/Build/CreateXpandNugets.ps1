@@ -143,6 +143,13 @@ Get-ChildItem "$root\Support\Nuspec" *.nuspec | foreach {
     $dir = (Get-Item $scriptPath).DirectoryName
     & "$dir\PackNugets.ps1" $file $readMe  $nuget $version $root
 }
+Get-ChildItem "$root\Support\Nuspec" *.nuspec|ForEach-Object{
+    [xml]$nuspec=Get-Content $_.FullName
+    $nuspec.package.metaData.dependencies.dependency|Where-Object{$_.Id -like "DevExpress*"}|ForEach-Object{
+        $_.ParentNode.RemoveChild($_)
+    }
+    $nuspec.Save($_.FullName)
+}
 $ErrorActionPreference = "stop"
 $packageDir = "$root\Build\_package\$Version"
 New-Item $packageDir -ItemType Directory -Force | Out-Null

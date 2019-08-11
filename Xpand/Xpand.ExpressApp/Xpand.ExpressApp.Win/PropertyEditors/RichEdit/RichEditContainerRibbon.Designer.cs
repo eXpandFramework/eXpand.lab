@@ -344,7 +344,7 @@
             // 
             // stylesRibbonPageGroup1
             // 
-            this.stylesRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("stylesRibbonPageGroup1.Glyph")));
+//            this.stylesRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("stylesRibbonPageGroup1.Glyph")));
             this.stylesRibbonPageGroup1.ItemLinks.Add(this.galleryChangeStyleItem1);
             this.stylesRibbonPageGroup1.Name = "stylesRibbonPageGroup1";
             // 

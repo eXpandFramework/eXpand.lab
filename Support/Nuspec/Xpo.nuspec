@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>eXpandXpo</id>
+    <version>19.1.503.5</version>
+    <title>DevExpress eXpandFramework Xpo Library</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://sign.expandframework.com</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>eXpandFramework Xpo Library. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>Xpo Library / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
+    <dependencies>
+      <dependency id="eXpandUtils" version="19.1.503.5" />	
+      <dependency id="DevExpress.Xpo" version="19.1.5" />
+      <dependency id="Newtonsoft.Json" version="12.0.2" />
+      <dependency id="System.Configuration.ConfigurationManager" version="4.5.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
+    <file src="Readme.txt" target="" />
+  </files>
+</package>

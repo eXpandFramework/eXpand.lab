@@ -87,10 +87,6 @@
     <Compile Include="Extensions\ReverseLineReader.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ModelEditor\GridHelper.cs" />
-    <Compile Include="ModelEditor\METoolWindowControl1.cs" />
-    <Compile Include="ModelEditor\METoolWindowControl1.Designer.cs">
-      <DependentUpon>METoolWindowControl1.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModelEditor\ModelEditorRunner.cs" />
     <Compile Include="ModelEditor\ProjectItemWrapper.cs" />
     <Compile Include="ModelEditor\ProjectWrapperBuilder.cs" />
@@ -241,9 +237,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ModelEditor\METoolWindowControl1.resx">
-      <DependentUpon>METoolWindowControl1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Options\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>

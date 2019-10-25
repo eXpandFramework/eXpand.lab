@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using EnvDTE;
 using EnvDTE90;
@@ -54,17 +56,12 @@ namespace Xpand.VSIX.Commands {
         }
 
         private void SetSpecificVersion(){
-            if (OptionClass.Instance.SpecificVersion){
-                DteExtensions.DTE.Events.SolutionEvents.Opened += () =>{
-                    IEnumerable<IFullReference> fullReferences = null;
-                    Task.Factory.StartNew(() => {
-                        fullReferences = DteExtensions.DTE.Solution.GetReferences();
-                    }).ContinueWith(task =>{
-                        foreach (var fullReference in fullReferences){
-                            fullReference.SpecificVersion = false;
-                        }
-                    });
-                };
+            if (OptionClass.Instance.SpecificVersion) {
+                DteExtensions.DTE.Events.SolutionEvents.WhenOpened()
+                    .SelectMany(unit => Observable.Start(() => DteExtensions.DTE.Solution.GetReferences()))
+                    .SelectMany(references => references)
+                    .Do(reference => reference.SpecificVersion = false)
+                    .Subscribe();
             }
         }
 

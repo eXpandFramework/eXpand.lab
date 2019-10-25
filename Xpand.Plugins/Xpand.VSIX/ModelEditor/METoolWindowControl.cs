@@ -7,6 +7,7 @@ using EnvDTE80;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.ModelEditor {
+    [ProvideToolboxControl("General", false)]
     public partial class METoolWindowControl : UserControl {
         private readonly DTE2 _dte = DteExtensions.DTE;
 
@@ -57,4 +58,6 @@ namespace Xpand.VSIX.ModelEditor {
         }
 
     }
+
+    
 }

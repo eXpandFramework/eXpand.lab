@@ -79,12 +79,24 @@ namespace Xpand.VSIX.Commands {
 
                 foreach (var reference in references) {
                     var path = Regex.Replace(GetPath(reference), @"(\\{2,})", @"\");
-                    DTE.WriteToOutput($"Looking for ${path}");
+                    DTE.WriteToOutput($"Looking for {path}");
                     var projectInfo = OptionClass.Instance.SourceCodeInfos.SelectMany(info => info.ProjectPaths)
                         .FirstOrDefault(
-                            info =>
-                                string.Equals(Regex.Replace(info.OutputPath, @"(\\{2,})", @"\"), path, StringComparison.CurrentCultureIgnoreCase) &&
-                                AssemblyDefinition.ReadAssembly(info.OutputPath).VersionMatch());
+                            info => {
+                                var pathFound = string.Equals(Regex.Replace(info.OutputPath, @"(\\{2,})", @"\"), path, StringComparison.CurrentCultureIgnoreCase);
+                                if (pathFound) {
+                                    if (!info.IgnoreVersion) {
+                                        var versionMatch = AssemblyDefinition.ReadAssembly(info.OutputPath).VersionMatch();
+                                        if (!versionMatch) {
+                                            DTE.WriteToOutput($"{path} version is not {DteExtensions.DTE.Solution.GetDXVersion(false)}");
+                                        }
+                                        return versionMatch;
+                                    }
+
+                                    return true;
+                                }
+                                return false;
+                            });
                     var name = GetName(reference);
                     if (projectInfo != null){
                         DTE.WriteToOutput($"{name} found at " + projectInfo.OutputPath);

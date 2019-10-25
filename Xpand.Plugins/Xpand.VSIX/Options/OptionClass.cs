@@ -247,6 +247,7 @@ namespace Xpand.VSIX.Options{
     public class ProjectInfo {
         public string Path { get; set; }
         public string OutputPath { get; set; }
+        public bool IgnoreVersion { get; set; }
     }
 
     public class OptionClassBase {

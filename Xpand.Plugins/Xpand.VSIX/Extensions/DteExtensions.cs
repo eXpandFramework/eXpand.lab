@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -15,6 +17,13 @@ namespace Xpand.VSIX.Extensions {
         private static OutputWindowPane _outputWindowPane;
 
         public static DTE2 DTE = (DTE2) Package.GetGlobalService(typeof(DTE));
+
+        public static IObservable<Unit> WhenOpened(this SolutionEvents solutionEvents) {
+            return Observable.FromEvent<_dispSolutionEvents_OpenedEventHandler,EventArgs>(h => solutionEvents.Opened += h,
+                h => solutionEvents.Opened -= h).Select(_ => Unit.Default);
+            
+        }
+
 
         public static Solution Solution(this IDTE2Provider provider){
             return provider.DTE2().Solution;

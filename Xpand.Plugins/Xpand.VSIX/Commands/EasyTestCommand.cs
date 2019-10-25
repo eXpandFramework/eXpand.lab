@@ -3,15 +3,13 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Reactive.Linq;
 using System.Xml.Linq;
 using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.VSPackage;
-using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands{
     public class LastBuildStatusArgs : EventArgs {
@@ -37,7 +35,7 @@ namespace Xpand.VSIX.Commands{
 
         public static void RunTest(bool debug) {
             DTE.InitOutputCalls("RunTest");
-            Task.Factory.StartNew(() => RunTestCore(debug),CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Current);
+            Observable.Start(() => RunTestCore(debug)).Subscribe();
         }
 
         private static void RunTestCore(bool debug) {

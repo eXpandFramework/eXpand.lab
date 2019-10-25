@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using DevExpress.XtraGrid;
 using EnvDTE;
@@ -22,7 +23,7 @@ namespace Xpand.VSIX.ModelEditor {
         static void Setup(GridControl gridControl) {
             _gridControl = gridControl;
             _currentSynchronizationContext = TaskScheduler.FromCurrentSynchronizationContext();
-            SetGridDataSource();
+            SetGridDataSource().ToObservable().Subscribe();
             _events = (Events2) DteExtensions.DTE.Events;
             _eventsSolutionEvents = _events.SolutionEvents;
             _eventsSolutionEvents.Opened += EventsSolutionEventsOnOpened;
@@ -82,7 +83,7 @@ namespace Xpand.VSIX.ModelEditor {
 
         private static void EventsSolutionEventsOnOpened() {
             ModelEditorRunner.MePath = ExtractME();
-            SetGridDataSource();
+            SetGridDataSource().ToObservable().Subscribe();
             try{
                 _fileSystemWatchers =GetFileSystemWatchers();
             }
@@ -112,16 +113,17 @@ namespace Xpand.VSIX.ModelEditor {
                     fileSystemWatcher.Dispose();
                 }
                 _fileSystemWatchers=GetFileSystemWatchers();
-                SetGridDataSource();
+                SetGridDataSource().ToObservable().Subscribe();
             }
             catch (Exception exception){
                 DteExtensions.DTE.WriteToOutput(exception.ToString());
             }
         }
 
-        private static void SetGridDataSource(){
+        private static async Task SetGridDataSource() {
+            await Task.CompletedTask;
             var projectWrappers = new List<ProjectItemWrapper>();
-            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList())
+            await Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList())
                 .ContinueWith(task1 => {
                     if (task1.Exception != null){
                         DteExtensions.DTE.LogError(task1.Exception.ToString());

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -38,6 +38,7 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.7" />
     <PackageReference Include="DevExpress.Web" Version="19.1.7" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.5.7" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web" />

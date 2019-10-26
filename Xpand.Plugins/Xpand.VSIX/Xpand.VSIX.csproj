@@ -44,7 +44,6 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>latest</LangVersion>
     <DeployExtension>True</DeployExtension>
-    <CodeAnalysisRuleSet>Xpand.VSIX1.ruleset</CodeAnalysisRuleSet>
     <CreateVsixContainer>True</CreateVsixContainer>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -56,7 +55,6 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>latest</LangVersion>
-    <CodeAnalysisRuleSet>Xpand.VSIX1.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -129,7 +127,6 @@
     <EmbeddedResource Include="ModelEditor\METoolWindowControl.resx">
       <DependentUpon>METoolWindowControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Wizard\Resources\Updater.cs" />
     <EmbeddedResource Include="Wizard\Resources\Updater.vb" />
     <Compile Include="Wizard\SecurityInstaller.cs" />

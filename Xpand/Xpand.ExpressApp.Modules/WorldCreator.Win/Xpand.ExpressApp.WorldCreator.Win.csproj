@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -19,8 +19,9 @@
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" Version="19.1.7" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
     <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.7" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.57.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.19.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.57.9" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.19.8" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.5.7" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.Win">

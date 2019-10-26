@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -36,7 +36,6 @@
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.BaseImpl.dll</HintPath>
-      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">

@@ -1,8 +1,8 @@
 param(
     $nugetBin = "$PSScriptRoot\..\..\build\Nuget",
-    $BuildBin = "$nugetbin\..\Temp"
+    $BuildBin = "$nugetbin\..\..\Xpand.DLL"
 )
-
+$VerbosePreference="continue"
 $packages = & (Get-NugetPath) list -source $nugetBin | ConvertTo-PackageObject
 $assemblyList = (Get-ChildItem $BuildBin *.dll)
 Write-HostFormatted "Extracting Packages" -Section
@@ -26,7 +26,7 @@ $unzipDirs
 
 Write-HostFormatted "Discover XAFModules" -Section
 "BuildBin=$BuildBin"
-$modules = Get-XAFModule $BuildBin -Include "Xpand.ExpressApp.*" -AssemblyList $assemblyList | ForEach-Object {
+$modules = Get-XAFModule $BuildBin -Include "Xpand.ExpressApp.*" -AssemblyList $assemblyList -Verbose | ForEach-Object {
     [PSCustomObject]@{
         FullName = $_.FullName
         platform = (Get-AssemblyMetadata $_.Assembly -key platform).value
@@ -35,10 +35,14 @@ $modules = Get-XAFModule $BuildBin -Include "Xpand.ExpressApp.*" -AssemblyList $
 $modules 
 Write-HostFormatted "Adding Readme" -Section
 
-$unzipDirs| Invoke-Parallel -VariablesToImport "assemblyList", "modules" -Script {
+# $unzipDirs| Invoke-Parallel -VariablesToImport "assemblyList", "modules" -Script {
+$unzipDirs| foreach {
     $Package=$_.package
     $Directory=$_.Path
+    "Package=$Package"
+    "directory=$directory"
     $moduleName = (Get-XAFModule $Directory $assemblyList).Name
+    "moduleName=$moduleName"
     $wikiName = $moduleName
     if (!$wikiName) {
         $wikiName = "Modules"

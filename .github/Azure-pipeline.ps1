@@ -5,7 +5,7 @@ param(
    $artifactstagingdirectory,
    $BetaFeed
 )
-
+dotnet tool restore
 $WorkingDirectory="$PSScriptRoot\.."
 if ($repository -like "*/eXpand.lab"){
    "Finding Version.."
@@ -32,7 +32,8 @@ Move-PaketSource 0 $DXApiFeed
 Pop-Location
 
 "Start build.."
-
+Set-location $WorkingDirectory
+Start-XpandProjectConverter -version ([version]::new($Version.Major,$Version.Minor,$Version.Build.ToString().Substring(0,$Version.Build.ToString().Length-2))) -SkipInstall
 $buildArgs=@{
    packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$DXApiFeed","$BetaFeed")
    configuration="Release"
@@ -46,7 +47,7 @@ if ($BetaFeed){
 }
 $buildArgs
 & "$WorkingDirectory\support\build\go.ps1" @buildArgs 
-Set-location $WorkingDirectory
+
 
 
 if ($LastExitCode){

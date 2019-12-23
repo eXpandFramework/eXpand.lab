@@ -97,10 +97,10 @@ $libTargetFramework = $libCsproj.project.propertygroup.targetFramework
     $ext = $_
     "Xpand.xpo", "Xpand.Utils", "Xpand.Persistent.BaseImpl" | ForEach-Object {
         $id = "$_.$ext"
-        Add-XmlElement $libNuspec "file" "files" @{
+        Add-XmlElement $libNuspec "file" "files" ([ordered]@{
             src    = $id
             target = "lib\$libTargetFramework\$id"
-        }
+        })
     }
 }
 $libNuspec.Save($libNuspecPath)
@@ -122,7 +122,7 @@ Get-ChildItem "$root\Support\Nuspec" *.nuspec | ForEach-Object {
 }
 
 Write-HostFormatted "Updating ReadMe" -Section
-& "$root\support\build\addreadme.ps1"
+# & "$root\support\build\addreadme.ps1"
 $ErrorActionPreference = "stop"
 $packageDir = "$root\Build\_package\$Version"
 New-Item $packageDir -ItemType Directory -Force | Out-Null

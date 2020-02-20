@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency version="3.6" id="ExcelDataReader.DataSet" />
-      <dependency version="19.2.601.4" id="eXpandLib" />
-      <dependency version="19.2.601.4" id="eXpandSystem" />
-      <dependency version="19.2.601.4" id="eXpandValidation" />
+      <dependency version="19.2.601.5" id="eXpandLib" />
+      <dependency version="19.2.601.5" id="eXpandSystem" />
+      <dependency version="19.2.601.5" id="eXpandValidation" />
       <dependency version="0.11.1" id="Mono.Cecil" />
       <dependency version="0.8" id="Ryder" />
       <dependency version="4.3" id="System.IO.Compression" />

@@ -138,3 +138,4 @@ fabric.properties
 /Xpand.Plugins/packages/
 **/.idea/*/.idea/contentModel.xml
 /**/paket-files/*
+/_Xpand.dll

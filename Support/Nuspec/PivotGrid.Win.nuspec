@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#PivotGrid</projectUrl>
     <dependencies>
-      <dependency version="19.2.601.4" id="eXpandDashboard" />
-      <dependency version="19.2.601.4" id="eXpandLib" />
-      <dependency version="19.2.601.4" id="eXpandSystemWin" />
+      <dependency version="19.2.601.5" id="eXpandDashboard" />
+      <dependency version="19.2.601.5" id="eXpandLib" />
+      <dependency version="19.2.601.5" id="eXpandSystemWin" />
       <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ModelMapper" />
       <dependency version="2.201.5.1" id="Xpand.XAF.Modules.Reactive.Logger" />
     </dependencies>

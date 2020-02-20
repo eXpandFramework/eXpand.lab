@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
       <dependency version="3.3.1" id="AutoMapper" />
-      <dependency version="19.2.601.4" id="eXpandLib" />
-      <dependency version="19.2.601.4" id="eXpandSystem" />
+      <dependency version="19.2.601.5" id="eXpandLib" />
+      <dependency version="19.2.601.5" id="eXpandSystem" />
       <dependency version="4.6" id="System.Resources.Extensions" />
       <dependency version="2.201.5.1" id="Xpand.XAF.Modules.GridListEditor" />
       <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ModelMapper" />

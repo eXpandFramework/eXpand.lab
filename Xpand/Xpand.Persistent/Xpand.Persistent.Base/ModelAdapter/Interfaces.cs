@@ -16,8 +16,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         float? Size { get; set; }
         [Category("Font")]
         bool? Bold { get; set; }
-        [Category("Font")]
-        GraphicsUnit? Unit { get; set; }
+        // [Category("Font")]
+        // GraphicsUnit? Unit { get; set; }
         [Category("Font")]
         bool? Underline { get; set; }
         [Category("Font")]

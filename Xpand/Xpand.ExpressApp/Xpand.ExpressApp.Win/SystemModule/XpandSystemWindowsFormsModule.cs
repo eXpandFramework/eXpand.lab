@@ -45,6 +45,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ModelMapperModule));
             RequiredModuleTypes.Add(typeof(GridListEditorModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Windows.WindowsModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
@@ -60,14 +61,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void Setup(XafApplication application) {
             base.Setup(application);
             application.SetupComplete+=ApplicationOnSetupComplete;
-            ModelBindingService.ControlBind.Where(_ => _.ObjectView is ListView listView&&listView.Editor is LayoutViewListEditor&&_.Model.Parent is IModelListView)
+            ModelBindingService.ControlBind.Where(_ => _.ObjectView is ListView {Editor: LayoutViewListEditor} && _.Model.Parent is IModelListView)
                 .Select(_ => {
                     var layoutView = ((LayoutViewListEditor) ((ListView) _.ObjectView).Editor).XafLayoutView;
                     var modelLayoutViewDesign =((IModelLayoutViewDesign) _.ObjectView.Model.GetNode(LayoutViewMapName)).DesignLayoutView.LayoutStore;
                     var buffer = Encoding.UTF32.GetBytes(modelLayoutViewDesign);
-                    using (var memoryStream = new MemoryStream(buffer)){
-                        layoutView.RestoreLayoutFromStream(memoryStream);
-                    }
+                    using var memoryStream = new MemoryStream(buffer);
+                    layoutView.RestoreLayoutFromStream(memoryStream);
                     return Unit.Default;
                 })
                 .Subscribe();
@@ -124,9 +124,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(DatabaseMaintenanceController),
                 typeof(AutoScrollGridListEditorController),
                 typeof(EditModelController),
-                typeof(ApplicationMultiInstancesController),
                 typeof(AutoExpandNewRowController),
-                typeof(ApplicationExitController),
                 typeof(ActiveDocumentViewController),
                 typeof(FilterByGridViewColumnController),
                 typeof(FullTextAutoFilterRowController),
@@ -150,9 +148,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(HideGridPopUpMenuViewController),
                 typeof(HighlightFocusedLayoutItemDetailViewController),
                 typeof(LockListEditorDataUpdatesController),
-                typeof(LoadWithWindowsController),
-                typeof(CloseFormController),
-                typeof(NotifyIconController),
                 typeof(ReadOnlyTabStopController),
                 typeof(RemoveNavigationItemsController),
                 typeof(SearchFromDetailViewController),

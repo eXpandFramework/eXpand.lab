@@ -70,10 +70,7 @@
     <Compile Update="SystemModule\ActiveDocumentViewController.cs" />
     <Compile Update="SystemModule\CurrentProcessController.cs" />
     <Compile Update="SystemModule\PopupWindowStateController.cs" />
-    <Compile Update="SystemModule\ApplicationMultiInstancesController.cs" />
-    <Compile Update="SystemModule\ApplicationExitController.cs" />
     <Compile Update="SystemModule\SplitLayoutControlModelAdapterController.cs" />
-    <Compile Update="SystemModule\XafLayoutControlModelAdapterController.cs" />
     <Compile Update="SystemModule\RibbonFromModelController.cs" />
     <Compile Update="SystemModule\EMailHighlightingController.Designer.cs">
       <DependentUpon>EMailHighlightingController.cs</DependentUpon>
@@ -81,9 +78,6 @@
     <Compile Update="SystemModule\SelectFirstNavigationItemController.cs" />
     <Compile Update="SystemModule\ToolTip\WinToolTipsController.cs" />
     <Compile Update="SystemModule\XpandSystemWindowsFormsModule.cs" />
-    <Compile Update="SystemModule\LoadWithWindowsController.cs" />
-    <Compile Update="SystemModule\CloseFormController.cs" />
-    <Compile Update="SystemModule\NotifyIconController.cs" />
     <Compile Update="SystemModule\RemoveNavigationItemsController.cs" />
     <Compile Update="SystemModule\SearchFromDetailViewController.cs" />
     <Compile Update="SystemModule\WindowHintController.cs" />

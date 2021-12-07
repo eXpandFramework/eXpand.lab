@@ -4,4 +4,3 @@ $sources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azure
 exit $LastExitCode
 
 
-l

@@ -22,11 +22,14 @@ function assert(label: string, cond: boolean, detail?: string): void {
 }
 function mkPi(): any {
   const cmds = new Map<string, any>();
+  const regs: Array<{ name: string; description?: string }> = [];
   return {
     registerCommand: (n: string, d: any) => {
+      regs.push({ name: n, description: d?.description });
       cmds.set(n, d);
     },
     _cmds: cmds,
+    _regs: regs,
   };
 }
 function resolvePiCli(): string {
@@ -101,6 +104,27 @@ const runPi = (opts: {
     const pi = mkPi();
     activate(pi);
     assert("E2: /devexpress registered", typeof pi._cmds.get("devexpress")?.handler === "function");
+  }
+  // Section: E3 — invoking /devexpress reaches the engine. The stub's handler
+  // lazily imports ./engine.js, attaches the RX engine and delegates to the
+  // command that call registers; an empty pick aborts with the menu's own
+  // text. Before the fix this died with "__filename is not defined" (an ESM
+  // module reaching for a CommonJS global) and, behind it, with a
+  // registerBuildCommand that no longer exists on the engine module.
+  {
+    const pi = mkPi();
+    activate(pi);
+    const ctx = {
+      cwd: join(__dirname, "..", "..", ".."),
+      ui: { select: async () => undefined, notify: async () => {} },
+    };
+    const answer = await pi._cmds.get("devexpress").handler([], ctx);
+    assert("E3: the engine answers through the menu", answer === "DevExpress menu: aborted.", String(answer));
+    const regs = (pi._regs as Array<{ name: string; description?: string }>)
+      .filter((r) => r.name === "devexpress");
+    assert("E4: the stub carries the engine's own description",
+      regs.length === 2 && regs[0].description === regs[1].description,
+      regs.map((r) => String(r.description)).join(" | ").slice(0, 220));
   }
   console.log(`\n${ok} passed, ${fail} failed`);
   process.exit(fail > 0 ? 1 : 0);

@@ -8,8 +8,10 @@ import type { attachEngine } from "./engine.js";
 export default function (pi: any): void {
   let handler: ((args: unknown, ctx: unknown) => Promise<unknown>) | undefined;
   pi.registerCommand("devexpress", {
+    // The engine re-registers this command on first use; the E4 contract pins
+    // the two registrations together, so keep this text equal to menu.ts's.
     description:
-      "DevExpress menu: Build → RX-XAF | eXpand → Lab | Release; args: status | cancel | watch | build lab|release | publish lab|release",
+      "DevExpress menu: Build | Publish | Last build status | Cancel AzDO build | Start AzDO watcher → RX-XAF | eXpand → Lab | Release",
     handler: async (args: unknown, ctx: unknown) => {
       if (!handler) {
         const spec = "./engine.js";

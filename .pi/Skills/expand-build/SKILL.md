@@ -10,11 +10,20 @@ Pi auto-discovers `cwd/.pi/extensions`, so this only loads in the eXpand
 tree. Skill lives at `D:/expand/.pi/Skills/expand-build/SKILL.md`.
 
 `activate` registers `/devexpress` only. The first command jiti-loads
-`C:/Work/Reactive.XAF/.pi/extensions/reactive-xaf-build/build.js`
-(sources are `.ts`) and attaches `{ profile: expandProfile }`.
+`C:/Work/Reactive.XAF/.pi/extensions/reactive-xaf-build/menu.ts` — the
+composition root that owns `registerBuildCommand` — and takes
+`expandProfile` from that tree's `profile.ts`, attaching
+`{ profile: expandProfile }`.
 `expandProfile.detect(cwd)` matches `Directory.Packages.props` +
 `Xpand/Xpand.ExpressApp.Modules`. The engine, pane, watcher, and azdo
 scripts stay in Reactive.XAF.
+
+Both modules are ESM: the loader anchors itself with `import.meta.url`, never
+`__filename`/`__dirname`/`require`. The native TypeScript loader injects those
+CommonJS globals per file and only for paths matched against an extension root,
+and this tree is reached through a link (pane `C:\Work\expand`, real
+`D:\expand`) — an unmatched file loses them and the command dies with
+`__filename is not defined`.
 
 ## Expand flow (via the shared engine)
 
@@ -38,3 +47,5 @@ Run: `npx tsx C:/Work/expand/.pi/extensions/expand-build/expand-build-tests.ts`
 - startup speed — nochat spawn with `cwd: C:/Work/expand`, `agentDir: C:/Work/expand/.pi`, `exts: ["expand-build/index.ts"]`.
 - E1 — spawn does not print Failed to load extension.
 - E2 — activate registers `/devexpress`.
+- E3 — invoking the command reaches the engine (the menu's own abort text, not a load error).
+- E4 — the stub's description equals the engine's own registration.

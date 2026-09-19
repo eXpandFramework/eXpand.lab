@@ -1,11 +1,19 @@
 /**
  * expand-build/engine — jiti-loads the Reactive.XAF /devexpress engine.
  * Imported only from the command handler, never at boot.
+ *
+ * ESM module, so it must not reach for `__filename`, `__dirname` or
+ * `require`: the native TypeScript loader injects those CommonJS globals per
+ * file, and only for paths matched against an extension root — the eXpand
+ * tree is reached through a link (pane C:\Work\expand, real D:\expand), so an
+ * unmatched file loses them and the command dies with "__filename is not
+ * defined". `import.meta.url` is the ESM spelling.
  */
 
 import { createRequire } from "node:module";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const RX = "C:/Work/Reactive.XAF/.pi/extensions/reactive-xaf-build";
 
@@ -35,10 +43,14 @@ function loadEngine(): {
   const { createJiti } = requireFromPi()("jiti") as {
     createJiti: (id: string, opts?: object) => (id: string) => any;
   };
-  const jiti = createJiti(__filename, { moduleCache: false });
+  // The base id only anchors relative specifiers; every target below is an
+  // absolute path, so any real file serves as the anchor.
+  const jiti = createJiti(fileURLToPath(import.meta.url), { moduleCache: false });
+  // registerBuildCommand lives in the menu — the composition root that owns
+  // the command — not in build.ts, which is the engine the menu drives.
   return {
     expandProfile: jiti(fileOf("profile")).expandProfile,
-    registerBuildCommand: jiti(fileOf("build")).registerBuildCommand,
+    registerBuildCommand: jiti(fileOf("menu")).registerBuildCommand,
   };
 }
 

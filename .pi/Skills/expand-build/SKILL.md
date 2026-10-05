@@ -42,10 +42,29 @@ See `reactive-xaf-build/profile.md` for the profile fields.
 
 ## Tests (`expand-build-tests.ts`)
 
-Run: `npx tsx C:/Work/expand/.pi/extensions/expand-build/expand-build-tests.ts`
+Run: `run_tests(name="expand-build", fixture="expand-build-tests.ts")` — never the
+file directly (the shell gate blocks it, and the fixture needs the runner's
+typeScript loader and this tree's `resolve.mjs` floor). Details and numbers:
+`expand-build-tests.md`.
 
-- startup speed — nochat spawn with `cwd: C:/Work/expand`, `agentDir: C:/Work/expand/.pi`, `exts: ["expand-build/index.ts"]`.
-- E1 — spawn does not print Failed to load extension.
-- E2 — activate registers `/devexpress`.
-- E3 — invoking the command reaches the engine (the menu's own abort text, not a load error).
-- E4 — the stub's description equals the engine's own registration.
+The suite drives pi's own runtime: `activate` is built by pi's loader and
+dispatched through pi's `ExtensionRunner` (shared harness, `pi-dev/real-runner.ts`),
+and the boot is ONE real nochat spawn through pi-dev's canonical runner with the
+project entry absolute and `cwd` at this tree. The pick is cancelled through the
+harness `ui` override; no rendering is asserted.
+
+- T1 — this tree's current sources boot a real pi (exit 0).
+- T2 — `/devexpress` is registered, read back from pi's own runner.
+- T3 — pi's own dispatch runs the command; an empty pick aborts with the menu's
+own text through the lazily loaded engine.
+- T4 — the engine's re-registration is the live one and keeps the boot
+description.
+- T5 — no Failed to load extension, the loader reports this extension's load
+line, and that load stays inside the 1000ms registered budget.
+- T6 — the startup budget, kept and re-based (3000ms was red: 5122/5448ms
+measured under fleet load); the case prints its own measurement every run.
+
+pi-dev's boot ledger cannot serve a project tree (its identity is
+`<agentDir>/extensions/<entry>` and its spawn always appends a platform member
+off that base), so the boot is paid per run instead of being served from the
+ledger — no fake fills the gap. See `expand-build-tests.md` for the probe.

@@ -45,7 +45,7 @@ See `reactive-xaf-build/profile.md` for the profile fields.
 Run: `run_tests(name="expand-build", fixture="expand-build-tests.ts")` — never the
 file directly (the shell gate blocks it, and the fixture needs the runner's
 typeScript loader and this tree's `resolve.mjs` floor). Details and numbers:
-`expand-build-tests.md`.
+`expand-build-tests.md`; the floor itself: `resolve.md`.
 
 The suite drives pi's own runtime: `activate` is built by pi's loader and
 dispatched through pi's `ExtensionRunner` (shared harness, `pi-dev/real-runner.ts`),

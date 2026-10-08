@@ -49,10 +49,10 @@ typeScript loader and this tree's `resolve.mjs` floor). Details:
 
 One `buildRealRunner({ entry })` build hands this tree's own `index.ts` to pi's
 loader, so the extension under test is the file on disk and pi's own
-`ExtensionRunner` dispatches every case. Nothing is spawned: the nochat boot the
-suite used to pay, and the two timing budgets it carried, were removed with the
-one-route rule, and their measured numbers are kept in `expand-build-tests.md`.
-The pick is cancelled through the harness `ui` override; no rendering is asserted.
+`ExtensionRunner` dispatches T1 to T5. The BOOT is proven through pi-dev's shared
+ledger (T6): a cold key pays one real boot of this tree and records it, every
+later run is served that record, and the fixture holds no spawn of its own. The
+pick is cancelled through the harness `ui` override; no rendering is asserted.
 
 - T1 — pi's loader imported this tree's entry and `/devexpress` is registered on
 pi's own runner.
@@ -63,9 +63,11 @@ description.
 engine.
 - T5 — an entry pi's loader cannot build is refused loudly, with pi's own reason
 (the entry's path is in the message).
+- T6 — the tree's sources are proven to boot by pi-dev's ledger (one real boot
+when the key is cold, none when it is warm).
 - extra — pi's runner reported no handler error.
 
-pi-dev's boot ledger still cannot serve a project tree (its identity is rooted at
-the agent dir, and its spawn appends a platform member off that base), so no
-recorded boot proof exists for this tree and none is faked. See
-`expand-build-tests.md` for the probe and for the removed boot's numbers.
+pi-dev's ledger could not serve a project tree until 2026-10-08 (its spawn always
+appended a platform member off the base, and the base had to be canonical); both
+are fixed there — commits `126b8f84` and `cd98454a`. See `expand-build-tests.md`
+for the probe text and the boot numbers the old case asserted.

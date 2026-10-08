@@ -1,23 +1,25 @@
+// test-timeout: 120000 — a cold ledger key pays one real boot of this tree.
 /**
  * expand-build-tests — behavior contract for the eXpand tree's /devexpress loader.
  *
- * Runtime exercise: pi's OWN loader and runner, in-process, nothing spawned.
- * ONE `buildRealRunner({ entry })` build hands this tree's own `index.ts` to
+ * Runtime exercise: pi's OWN loader and runner, in-process. ONE
+ * `buildRealRunner({ entry })` build hands this tree's own `index.ts` to
  * pi's loader (jiti plus pi's alias table), so the extension under test is the
  * file on disk, imported the way pi imports it at boot, and pi's own
- * ExtensionRunner dispatches. No hand-written pi exists here, and no pi process
- * is started: the nochat boot this suite used to pay, and the two timing budgets
- * it carried, went with the one-route rule — every case drives the harness. The
- * numbers that boot measured are recorded in
+ * ExtensionRunner dispatches. No hand-written pi exists here, and this file
+ * HOLDS NO SPAWN: the nochat spawn it used to pay, and the two timing budgets
+ * it carried, are gone. The boot itself is proven through pi-dev's shared
+ * ledger (T6), which pays one real boot for a cold key and serves every later
+ * run from the record; the measured numbers the old case asserted stay in
  * skills/expand-build/expand-build-tests.md.
  *
- * The load contract is carried by the entry route now: pi's loader importing
- * THIS tree's file IS the load, and pi's loader refusing one is loud (T5).
- * pi-dev's shared boot ledger cannot serve a project tree — its identity is
- * `<agentDir>/extensions/<entry>` and its spawn always appends a
- * `dependency-manager` member resolved off that base — so no recorded boot
- * proof exists for this tree, and nothing fake fills the gap; the probe and its
- * measured failure text live in the companion doc.
+ * The load contract is carried by the entry route: pi's loader importing THIS
+ * tree's file IS the load, and pi's loader refusing one is loud (T5). Until
+ * 2026-10-08 the ledger could not prove this tree: its spawn always appended a
+ * `dependency-manager` member resolved off the base, which a project tree does
+ * not carry, and the base spelling had to be canonical (both fixed in pi-dev —
+ * commits 126b8f84 and cd98454a). Nothing fake filled that gap in the meantime,
+ * and the probe's measured failure text stays in the companion doc.
  *
  * The plain-tsx host cannot resolve `@pi/` names, so the tree's own floor
  * (resolve.mjs) is armed BEFORE the harness import: the harness module itself is
@@ -136,11 +138,23 @@ async function caseLoadFailure(buildRealRunner: (options: any) => Promise<any>):
   );
 }
 
+/** T6 — the tree's own sources are PROVEN to boot by pi-dev's ledger: a cold
+ *  key pays ONE real boot through pi's canonical runner and records it, a warm
+ *  key is served with nothing spawned. Either way this file holds no spawn. */
+function caseBootProof(proof: any): void {
+  assert(
+    "T6: the tree's sources are proven to boot by pi-dev's ledger",
+    proof?.ok === true,
+    JSON.stringify(proof ?? {}).slice(0, 240),
+  );
+}
+
 (async () => {
   // Section: the floor — @pi/ names resolved for a plain-tsx host, armed BEFORE
   // the harness import, which is itself a @pi/ name.
   await import(new URL("./resolve.mjs", import.meta.url).href);
   const { buildRealRunner } = await import("@pi/pi-dev/real-runner.js");
+  const { ensureBootProof } = await import("@pi/pi-dev/boot-proof.js");
 
   // Section: T1-T4 + the handler-error case — one loader build of this tree
   const boot: BootRegistration = { handler: undefined, description: "" };
@@ -158,6 +172,13 @@ async function caseLoadFailure(buildRealRunner: (options: any) => Promise<any>):
   } finally {
     handle.dispose();
   }
+
+  // Section: T6 — the tree's boot proof, served from pi-dev's ledger
+  const proof = ensureBootProof("expand-build", "expand-build/index.ts", {
+    agentDir: join(TREE_ROOT, ".pi"),
+    timeoutSec: 120,
+  });
+  caseBootProof(proof);
 
   // Section: T5 — a refused entry is loud, with pi's own reason
   await caseLoadFailure(buildRealRunner);

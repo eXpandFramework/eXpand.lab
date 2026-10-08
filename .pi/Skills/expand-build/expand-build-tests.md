@@ -1,6 +1,6 @@
 ---
 name: expand-build-tests
-description: "Companion for .pi/extensions/expand-build/expand-build-tests.ts — the eXpand tree's /devexpress loader contract driven through pi's OWN runtime: one buildRealRunner({ entry }) build that hands the tree's own index.ts to pi's loader, what stays stubbed, the loud-refusal case, the resolve.mjs floor verdict, and the nochat boot this suite removed (with its measured numbers) plus why pi-dev's boot ledger cannot serve a project tree. Use when a case fails or when changing the loader, its command, or the suite's shape."
+description: "Companion for .pi/extensions/expand-build/expand-build-tests.ts — the eXpand tree's /devexpress loader contract driven through pi's OWN runtime: one buildRealRunner({ entry }) build that hands the tree's own index.ts to pi's loader, what stays stubbed, the loud-refusal case, the resolve.mjs floor verdict, and the BOOT, proven through pi-dev's ledger with the nochat spawn this suite used to pay kept as history. Use when a case fails or when changing the loader, its command, or the suite's shape."
 ---
 
 # expand-build-tests: the /devexpress loader on pi's own runtime
@@ -17,8 +17,8 @@ run_tests(name="expand-build", fixture="expand-build-tests.ts")
 
 Never run the file directly — the shell gate blocks it, and the fixture needs a
 TypeScript loader plus the tree's own resolve hook, both of which the runner
-supplies. No budget header is needed any more: the suite spawns nothing (see
-"The boot case (removed)").
+supplies. The file declares its own budget (`// test-timeout: 120000`) because
+the ledger proof in T6 pays one real boot when the key is cold.
 
 ## What stayed real
 
@@ -52,26 +52,25 @@ supplies. No budget header is needed any more: the suite spawns nothing (see
 - **Nothing else.** The session manager, the model registry, the event bus and the
   extension cache are pi's own, built by the harness.
 
-## The boot case (removed) — and the ledger finding it left behind
+## The boot, proven through pi-dev's ledger
 
-Every case drives the harness now, so the nochat spawn this suite used to pay and
-both timing budgets it carried are gone, and the load contract moved to the entry
-route: pi's loader importing this tree's file IS the load (T1), and a refused
-entry is loud (T5). The measured boot numbers are kept under History below,
-because a future suite that wants a boot budget again starts from them.
+T6 asks pi-dev's shared ledger for this tree's boot proof: a cold key pays ONE
+real boot through pi's canonical runner and records it, and every later run is
+served that record with nothing spawned. The fixture holds no spawn of its own,
+and the load contract stays on the entry route — pi's loader importing this
+tree's file IS the load (T1), with a refused entry loud (T5).
 
-An in-process boot is not available to replace the spawn, and no fake fills the
-gap. pi-dev's shared ledger (`ensureBootProof`) is **install-rooted** and cannot
-prove a project-local extension:
+**What used to block it, measured on this tree before the fix** (kept because the
+failure text is the reason the machinery looks the way it does):
 
-- its identity is `<agentDir>/extensions/<entry>` (`boot-proof-key.ts`), so the key
-  only builds when the sources sit under the agent dir;
-- its spawn always appends a `dependency-manager/index.ts` member resolved off the
-  same base (`buildScoutCommand`, "Always load dependency-manager in spawned pi"),
-  which a project tree does not have.
-
-Measured on the committed tree, with `PI_RUNNER_AGENT_DIR` pointed at this tree
-(exit 1, nothing recorded):
+- the spawn always appended a `dependency-manager/index.ts` member resolved off
+  the base (`buildScoutCommand`, "Always load dependency-manager in spawned pi"),
+  which a project tree does not carry — the boot then died with the exit-1 error
+  below and recorded nothing;
+- the base had to be spelled canonically: a base reached through the pane link
+  (`C:\Work\expand`, real `D:\expand`) booted fine and then reported
+  `booted, NOT recorded: openDb(...): path mismatch`, because the sqlite registry
+  refuses to open one file under two spellings.
 
 ```
 Error: Failed to load extension "C:\Work\expand\.pi\extensions\dependency-manager\index.ts":
@@ -79,12 +78,11 @@ Extension path does not exist: C:\Work\expand\.pi\extensions\dependency-manager\
 verdict: {"ok":false,"hit":false,"status":1,...,"detail":"spawn did not prove a boot (exit status 1)…"}
 ```
 
-The key itself does build for this tree
-(`bp1|expand-build|expand-build/index.ts|0.84.2|<digest>`) — the closure digest is
-agent-dir-relative, so island and working tree agree on it — but no row can ever be
-recorded. Making the ledger serve a project tree is a change in pi-dev (skip the
-platform member for a non-home base, or accept an absolute entry). This tree does
-not own that code.
+Both are fixed in pi-dev today: the member is appended only where the base carries
+it (`withDependencyManager`), and the ledger canonicalizes its base
+(`canonicalDirPath`) — commits `126b8f84` and `cd98454a`. The key was never the
+problem (`bp1|expand-build|expand-build/index.ts|0.84.2|<digest>` built for this
+tree all along, because the closure digest is agent-dir-relative).
 
 ## History (removed boot)
 
@@ -120,5 +118,8 @@ entry is NOT imported by the test: pi's loader imports it.
   engine.
 - **T5** — an entry pi's loader cannot build rejects the build with pi's own reason
   (the entry's path travels in the message).
+- **T6** — the tree's sources are proven to boot by pi-dev's ledger: a cold key
+  pays one real boot, a warm one is served with nothing spawned, and this file
+  holds no spawn either way.
 - **extra** — pi's runner reported no handler error (a broken handler is a silent
   no-op otherwise).

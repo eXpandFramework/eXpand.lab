@@ -626,3 +626,8 @@ $RECYCLE.BIN/
 /Build/
 **/TestsLog.xml
 **/.idea/**
+
+# pi project-local extension state (the boot-proof ledger and its sidecars)
+.pi/extensions/pi-dev/*.db
+.pi/extensions/pi-dev/*.db-wal
+.pi/extensions/pi-dev/*.db-shm

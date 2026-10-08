@@ -44,27 +44,28 @@ See `reactive-xaf-build/profile.md` for the profile fields.
 
 Run: `run_tests(name="expand-build", fixture="expand-build-tests.ts")` — never the
 file directly (the shell gate blocks it, and the fixture needs the runner's
-typeScript loader and this tree's `resolve.mjs` floor). Details and numbers:
+typeScript loader and this tree's `resolve.mjs` floor). Details:
 `expand-build-tests.md`; the floor itself: `resolve.md`.
 
-The suite drives pi's own runtime: `activate` is built by pi's loader and
-dispatched through pi's `ExtensionRunner` (shared harness, `pi-dev/real-runner.ts`),
-and the boot is ONE real nochat spawn through pi-dev's canonical runner with the
-project entry absolute and `cwd` at this tree. The pick is cancelled through the
-harness `ui` override; no rendering is asserted.
+One `buildRealRunner({ entry })` build hands this tree's own `index.ts` to pi's
+loader, so the extension under test is the file on disk and pi's own
+`ExtensionRunner` dispatches every case. Nothing is spawned: the nochat boot the
+suite used to pay, and the two timing budgets it carried, were removed with the
+one-route rule, and their measured numbers are kept in `expand-build-tests.md`.
+The pick is cancelled through the harness `ui` override; no rendering is asserted.
 
-- T1 — this tree's current sources boot a real pi (exit 0).
-- T2 — `/devexpress` is registered, read back from pi's own runner.
-- T3 — pi's own dispatch runs the command; an empty pick aborts with the menu's
-own text through the lazily loaded engine.
-- T4 — the engine's re-registration is the live one and keeps the boot
+- T1 — pi's loader imported this tree's entry and `/devexpress` is registered on
+pi's own runner.
+- T2 — pi's own dispatch runs the command.
+- T3 — the engine's re-registration is the live one and keeps the boot
 description.
-- T5 — no Failed to load extension, the loader reports this extension's load
-line, and that load stays inside the 1000ms registered budget.
-- T6 — the startup budget, kept and re-based (3000ms was red: 5122/5448ms
-measured under fleet load); the case prints its own measurement every run.
+- T4 — an empty pick aborts with the menu's own text through the lazily loaded
+engine.
+- T5 — an entry pi's loader cannot build is refused loudly, with pi's own reason
+(the entry's path is in the message).
+- extra — pi's runner reported no handler error.
 
-pi-dev's boot ledger cannot serve a project tree (its identity is
-`<agentDir>/extensions/<entry>` and its spawn always appends a platform member
-off that base), so the boot is paid per run instead of being served from the
-ledger — no fake fills the gap. See `expand-build-tests.md` for the probe.
+pi-dev's boot ledger still cannot serve a project tree (its identity is rooted at
+the agent dir, and its spawn appends a platform member off that base), so no
+recorded boot proof exists for this tree and none is faked. See
+`expand-build-tests.md` for the probe and for the removed boot's numbers.
